@@ -22,7 +22,9 @@ const tourSteps = [
 
 export default function DemoPlayerClient({ id }: { id: string }) {
   const [currentStep, setCurrentStep] = useState(0);
-  const title = id ? id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : "Demo";
+  const title = id ? id.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : "Demo";
+
+  console.log("Rendering DemoPlayerClient with ID:", id); // Debug log
 
   return (
     <div className="flex flex-col items-center flex-grow py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 min-h-screen">
