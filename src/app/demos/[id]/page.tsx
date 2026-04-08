@@ -3,6 +3,14 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
+export function generateStaticParams() {
+  return [
+    { id: 'market-sentinel' },
+    { id: 'ai-influencer' },
+    { id: 'sdlc-orchestrator' },
+  ];
+}
+
 const quickStartSteps = [
   { id: "01", icon: "🔒", title: "Secure Login", desc: "Navigate to the demo link and click the Login button located in the navigation menu to enter your credentials securely." },
   { id: "02", icon: "⚙️", title: "Setup Workspace", desc: "Go to the Integration page. Here, you can easily add new Users, assign Team Members, and configure your active Sprint." },
