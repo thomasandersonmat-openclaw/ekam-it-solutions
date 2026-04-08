@@ -35,7 +35,7 @@ function ContactForm() {
           {/* FormSubmit Configuration */}
           <input type="hidden" name="_subject" value="New Contact Inquiry from Ekam IT Solutions" />
           <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_next" value="https://thomasandersonmat-openclaw.github.io/ekam-it-solutions/contact?success=true" />
+          <input type="hidden" name="_next" value={`${process.env.NEXT_PUBLIC_BASE_URL}/contact?success=true`} />
           
           {/* Prevent auto-responses to the sender's email to avoid spam traps */}
           <input type="hidden" name="_autoresponse" value="" />
