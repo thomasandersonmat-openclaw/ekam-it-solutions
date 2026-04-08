@@ -1,15 +1,7 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-
-export function generateStaticParams() {
-  return [
-    { id: 'market-sentinel' },
-    { id: 'ai-influencer' },
-    { id: 'sdlc-orchestrator' },
-  ];
-}
+import { useState } from "react";
 
 const quickStartSteps = [
   { id: "01", icon: "🔒", title: "Secure Login", desc: "Navigate to the demo link and click the Login button located in the navigation menu to enter your credentials securely." },
@@ -21,10 +13,15 @@ const quickStartSteps = [
   { id: "07", icon: "🔍", title: "Review Code", desc: "Once the agents complete the task, open the Diff Viewer to see a clear side-by-side comparison of the code changes for human review." }
 ];
 
-export default function DemoPlayer() {
-  const params = useParams();
-  const id = params.id as string;
-  
+const tourSteps = [
+  { title: "Step 1: Secure Access", desc: "Click the 'Login' button in the dashboard to authenticate and access the secure orchestrator environment." },
+  { title: "Step 2: Issue a Command", desc: "Provide a natural language prompt describing the software or feature you want the agents to build." },
+  { title: "Step 3: Watch the Agents", desc: "Observe in real-time as the Dev, QA, and Architect agents collaborate to write and test the code." },
+  { title: "Step 4: Review Sandbox", desc: "Once QA passes, review the live Docker sandbox instance generated for your approval." }
+];
+
+export default function DemoPlayerClient({ id }: { id: string }) {
+  const [currentStep, setCurrentStep] = useState(0);
   const title = id ? id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : "Demo";
 
   return (
@@ -67,6 +64,50 @@ export default function DemoPlayer() {
                 allowFullScreen
               />
             </div>
+
+            {/* Floating Guided Tour Overlay for SDLC Orchestrator */}
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              className="absolute -right-4 top-1/4 w-80 bg-white/90 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border border-gray-200 z-10 hidden lg:block"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h4 className="text-sm font-bold text-black uppercase tracking-wider">Interactive Tour</h4>
+                <span className="text-xs font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded-full">{currentStep + 1} / {tourSteps.length}</span>
+              </div>
+              
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentStep}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="min-h-[100px]"
+                >
+                  <h3 className="text-lg font-bold text-black mb-2">{tourSteps[currentStep].title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{tourSteps[currentStep].desc}</p>
+                </motion.div>
+              </AnimatePresence>
+
+              <div className="flex justify-between mt-6 pt-4 border-t border-gray-100">
+                <button 
+                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                  disabled={currentStep === 0}
+                  className={`text-sm font-medium px-3 py-1.5 rounded-lg transition ${currentStep === 0 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100'}`}
+                >
+                  Previous
+                </button>
+                <button 
+                  onClick={() => setCurrentStep(Math.min(tourSteps.length - 1, currentStep + 1))}
+                  disabled={currentStep === tourSteps.length - 1}
+                  className={`text-sm font-medium px-4 py-1.5 rounded-lg transition ${currentStep === tourSteps.length - 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800 shadow-md'}`}
+                >
+                  Next Step
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
 
