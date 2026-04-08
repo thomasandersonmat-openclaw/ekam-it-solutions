@@ -8,6 +8,7 @@ export function generateStaticParams() {
   ];
 }
 
-export default function Page({ params }: { params: { id: string } }) {
-  return <DemoPlayerClient id={params.id} />;
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  return <DemoPlayerClient id={resolvedParams.id} />;
 }
