@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -19,22 +20,24 @@ export default function Home() {
           Ekam IT Solutions delivers premium, enterprise-grade technology services with elegant simplicity. We build the future so you can focus on today.
         </p>
         <div className="pt-8 flex justify-center space-x-4">
-          <motion.a 
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            href="/services" 
-            className="bg-black text-white px-8 py-3 rounded-full font-medium transition"
-          >
-            Explore Services
-          </motion.a>
-          <motion.a 
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            href="/demos" 
-            className="bg-gray-100 text-black px-8 py-3 rounded-full font-medium hover:bg-gray-200 transition"
-          >
-            View Demos
-          </motion.a>
+          <Link href="/services" passHref>
+            <motion.a 
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-black text-white px-8 py-3 rounded-full font-medium transition block"
+            >
+              Explore Services
+            </motion.a>
+          </Link>
+          <Link href="/demos" passHref>
+            <motion.a 
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-gray-100 text-black px-8 py-3 rounded-full font-medium hover:bg-gray-200 transition block"
+            >
+              View Demos
+            </motion.a>
+          </Link>
         </div>
       </motion.div>
     </div>
