@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
   },
   env: {
     NEXT_PUBLIC_BASE_URL: isProduction 
-      ? 'https://thomasandersonmat-openclaw.github.io/ekam-it-solutions' 
+      ? 'https://ekams.net' 
       : 'http://localhost:3000',
   }
 };
